@@ -3,7 +3,7 @@
 #include "funciones.h"
 
 int main() {
-    int opcion;
+    int op;
     int numMascotas = 0;
     int numServicios = 0;
     int idMascotas[MAX_MASCOTAS];
@@ -17,35 +17,38 @@ int main() {
     float preciosServicios[MAX_SERVICIOS];
     int idMascotaServicio[MAX_SERVICIOS];
 
-    FILE* archivo = fopen("factura.txt", "w"); // Abrir el archivo en modo escritura ("w")
+    FILE* archivo = fopen("facturacion.txt", "w"); // Abrir el archivo en modo escritura ("w")
     if (archivo == NULL) {
-        printf("Error al abrir el archivo.\n");
+        printf("Error al abrir el archivo!!.\n");
         return 1;
     }
     fclose(archivo);
 
     do {
         MenuVeterinaria();
-        scanf("%d", &opcion);
+        scanf("%d", &op);
 
-        switch (opcion) {
+        switch (op) {
             case 1:
-                ingresarMascota(&numMascotas, idMascotas, nombresMascotas, tiposMascotas, edadesMascotas, duenosMascotas);
+                ingresar_Mascota(&numMascotas, idMascotas, nombresMascotas, tiposMascotas, edadesMascotas, duenosMascotas);
                 break;
             case 2:
-                ingresarServicio(&numServicios, idServicios, nombresServicios, descripcionesServicios, preciosServicios, idMascotaServicio);
+                ingresar_ServicioMacota(&numServicios, idServicios, nombresServicios, descripcionesServicios, preciosServicios, idMascotaServicio);
                 break;
             case 3:
-                facturarServicios(numMascotas, numServicios, idMascotas, nombresMascotas, duenosMascotas, idServicios, nombresServicios, descripcionesServicios, preciosServicios, idMascotaServicio);
+                modificar_ValorServicio(numServicios, idServicios, nombresServicios, preciosServicios);
+                break;
+            case 4:
+                facturar_Servicios_Mascotas(numMascotas, numServicios, idMascotas, nombresMascotas, duenosMascotas, idServicios, nombresServicios, descripcionesServicios, preciosServicios, idMascotaServicio);
                 break;
             case 0:
                 printf("Saliendo del programa...\n");
                 break;
             default:
-                printf("Opcion invalida. Por favor, seleccione una opcion valida.\n");
+                printf("Opcion invalida!!!. Por favor, seleccione una opcion valida.\n");
                 break;
         }
-    } while (opcion != 0);
+    } while (op != 0);
 
     return 0;
 }
